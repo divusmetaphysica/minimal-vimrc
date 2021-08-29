@@ -1,4 +1,4 @@
-# My NEOVIM configuration
+# My VIM configuration
 
 Repo containes `.vim/init.vim` and Makefile to install necessary packages
 Vundle.vim for vim plugins and set the symbolic links. If one wants
