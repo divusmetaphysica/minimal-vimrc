@@ -1,8 +1,9 @@
 FTPLUGIN   := .vim/after/ftplugin
-DOTVIM     := ./.vim
-DOTVIMRC   := ./.vim/init.vim
-FOURSPACES := $(addprefix $(FTPLUGIN)/,$(addsuffix .vim,python rust go))
-TWOSPACES  := $(addprefix $(FTPLUGIN)/,$(addsuffix .vim,c c++ lua javascript typescript))
+DOTVIM     := ${HOME}/.vim
+DOTVIMRC   := ${HOME}/.vimrc
+TABBED     := $(addprefix $(FTPLUGIN)/,$(addsuffix .vim,go))
+SPACE4 := $(addprefix $(FTPLUGIN)/,$(addsuffix .vim,python rust))
+SPACE2  := $(addprefix $(FTPLUGIN)/,$(addsuffix .vim,c c++ lua javascript typescript))
 
 all: $(DOTVIM) $(DOTVIMRC) langstyles 
 .PHONY: all clean langstyles
@@ -15,22 +16,27 @@ $(DOTVIMRC):
 
 clean:
 	unlink $(DOTVIM)
-	rm -fr .vim/
+	rm -fr ${HOME}/.vim/
 	unlink $(DOTVIMRC)
 
 ftplugins:
 	mkdir -p $(FTPLUGIN)
 
-langstyles: ftplugins $(TWOSPACES) $(FOURSPACES)
+langstyles: ftplugins $(SPACE2) $(SPACE4) $(TABBED)
 
-$(TWOSPACES):
+$(SPACE2):
 	touch $@
 	echo "setlocal expandtab" >> $@
 	echo "setlocal shiftwidth=2" >> $@
 	echo "setlocal softtabstop=2" >> $@
 
-$(FOURSPACES):
+$(SPACE4):
 	touch $@
 	echo "setlocal expandtab" >> $@
+	echo "setlocal shiftwidth=4" >> $@
+	echo "setlocal softtabstop=4" >> $@
+
+$(TABBED):
+	touch $@
 	echo "setlocal shiftwidth=4" >> $@
 	echo "setlocal softtabstop=4" >> $@
